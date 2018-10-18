@@ -25,7 +25,7 @@ def train_accuracy_challenge(train_data, train_labels):
     # Expose the network globally
     global mlp
     # Train the model using 3 layers: each layer has a number of neurons that equal the features
-    mlp = MLPClassifier(hidden_layer_sizes=(264, 264, 264))
+    mlp = MLPClassifier(hidden_layer_sizes=264)
     mlp.fit(train_data, train_labels)
 
 
