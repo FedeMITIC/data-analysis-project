@@ -32,28 +32,10 @@ def main():
     train_data_accuracy = train_data_accuracy.values
     test_data_accuracy = test_data_accuracy.values
 
-    test_data_resized = np.empty((len(test_data_accuracy), 3))
-    train_data_resized = np.empty((len(train_data_accuracy), 3))
-    for i in range(test_data_accuracy.shape[0]):
-        # Rhythm mean
-        test_data_resized[i, 0] = np.mean(test_data_accuracy[i, 1:169])
-        # Chroma mean
-        test_data_resized[i, 1] = np.mean(test_data_accuracy[i, 170:217])
-        # MFCCs mean
-        test_data_resized[i, 2] = np.mean(test_data_accuracy[i, 218:265])
-
-    for i in range(train_data_accuracy.shape[0]):
-        # Rhythm mean
-        train_data_resized[i, 0] = np.mean(train_data_accuracy[i, 1:169])
-        # Chroma mean
-        train_data_resized[i, 1] = np.mean(train_data_accuracy[i, 170:217])
-        # MFCCs mean
-        train_data_resized[i, 2] = np.mean(train_data_accuracy[i, 218:265])
-
     # Scale the data before feeding them in the Neural Network
     scaler = StandardScaler()
-    train_data_resized = scaler.fit_transform(train_data_resized)
-    test_data_resized = scaler.transform(test_data_resized)
+    train_data_resized = scaler.fit_transform(train_data_accuracy)
+    test_data_resized = scaler.transform(test_data_accuracy)
 
     classifier = RandomForestClassifier(n_estimators=1000, criterion='gini', random_state=42, verbose=1)
     classifier.fit(train_data_resized, np.ravel(train_labels_accuracy))
@@ -62,8 +44,6 @@ def main():
 
     # Outputs the predictions: array of 6544 (0 to 6543)
     predictions = classifier.predict(test_data_resized)
-    predictions_2 = classifier.predict_log_proba(test_data_resized)
-    print(predictions_2)
     print(f'Total predictions: {len(predictions)}')
 
     for j in range(1, 11, 1):

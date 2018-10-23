@@ -9,8 +9,11 @@ from sklearn.model_selection import train_test_split
 
 def main():
     # Load the files for accuracy
-    test_data_accuracy = pd.read_csv('./accuracy/test_data.csv')
-    train_data_accuracy = pd.read_csv('./accuracy/train_data.csv')
+    # test_data_accuracy = pd.read_csv('./accuracy/test_data.csv')
+    # train_data_accuracy = pd.read_csv('./accuracy/train_data.csv')
+    # train_labels_accuracy = pd.read_csv('./accuracy/train_labels.csv')
+    test_data_accuracy = pd.read_csv('./accuracy/new_test_data.csv')
+    train_data_accuracy = pd.read_csv('./accuracy/new_train_data.csv')
     train_labels_accuracy = pd.read_csv('./accuracy/train_labels.csv')
     # test_data_logloss = pd.read_csv('./log-loss/test_data.csv')
     # train_data_logloss = pd.read_csv('./log-loss/train_data.csv')
@@ -30,7 +33,7 @@ def main():
                                                         test_size=0.1,
                                                         random_state=42)
 
-    # Scale the data before feeding them in the Neural Network
+    # # Scale the data before feeding them in the Neural Network
     scaler = StandardScaler()
     x_train = scaler.fit_transform(x_train)
     test_data_accuracy = scaler.transform(test_data_accuracy)
@@ -38,7 +41,7 @@ def main():
     # Instantiate and train the Neural Network: final loss => Iteration 166, loss = 0.00032670
     mlp = MLPClassifier(activation='relu',
                         alpha=0.0001,
-                        hidden_layer_sizes=(263, 263),
+                        hidden_layer_sizes=(100, 100),
                         learning_rate='constant',
                         max_iter=1000,
                         shuffle=True,
@@ -61,6 +64,7 @@ def main():
     id_num = range(1, len(predictions) + 1)
     df = pd.DataFrame({'Sample_id': id_num, 'Sample_label': predictions}, columns=['Sample_id', 'Sample_label'])
     df.to_csv('attempt.csv')
+    print(mlp.score(x_test, y_test))
 
 
 if __name__ == "__main__":
