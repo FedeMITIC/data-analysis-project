@@ -2,6 +2,9 @@
 Data analysis project for CS-E3210 Machine Learning Basic Principles  
 Group name: Group 169 (Federico Macchi, Ferran Montraveta Roca)
 
+Instructions can be found in the file MLBP 2018 project description.pdf
+The completed code and report is in the file MLBP2018 Project Report.ipynb (Jupyter Notebook)
+
 ## Accuracy competition
 https://www.kaggle.com/c/mlbp-data-analysis-challenge-accuracy-2018
 
